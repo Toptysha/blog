@@ -1,29 +1,36 @@
-import { ROLE } from '../constants';
 import { addUser } from './add-user';
-import { createSession } from './create-session';
 import { getCurrentUser } from './get-current-user';
+import { sessions } from './sessions';
 
 export const server = {
+	async logout(session) {
+		sessions.remove(session);
+	},
 	async authorize(login, password) {
 		const currentUser = await getCurrentUser(login);
 
 		if (!currentUser) {
 			return {
-				error: 'This login was not found',
+				error: 'Логин не найден',
 				res: null,
 			};
 		}
 
 		if (currentUser.password !== password) {
 			return {
-				error: 'Password are not correctly',
+				error: 'Неверный пароль',
 				res: null,
 			};
 		}
 
 		return {
 			error: null,
-			res: createSession(currentUser.role_id),
+			res: {
+				id: currentUser.id,
+				login: currentUser.login,
+				roleId: currentUser.role_id,
+				session: sessions.create(currentUser),
+			},
 		};
 	},
 	async register(regLogin, regPassword) {
@@ -31,7 +38,7 @@ export const server = {
 
 		if (!duplicateUser) {
 			return {
-				error: 'This login is already taken',
+				error: 'Логин уже используется',
 				res: null,
 			};
 		}
@@ -40,7 +47,12 @@ export const server = {
 
 		return {
 			error: null,
-			res: createSession(ROLE.READER),
+			res: {
+				id: duplicateUser.id,
+				login: duplicateUser.login,
+				roleId: duplicateUser.role_id,
+				session: sessions.create(duplicateUser),
+			},
 		};
 	},
 };

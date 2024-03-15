@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Icon } from '../../../icon';
+import { Icon } from '../../../icon/icon';
 import { Link } from 'react-router-dom';
 
 const LargeText = styled.div`

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-export const FooterComponent = ({ className }) => {
+const FooterComponent = ({ className }) => {
 	const [weather, setWeather] = useState({ city: '', temperature: '', description: '' });
 
 	const date = new Date().toLocaleString('ru', { day: 'numeric', month: 'long' });
@@ -15,7 +15,7 @@ export const FooterComponent = ({ className }) => {
 	return (
 		<div className={className}>
 			<div>
-				Блог веб-разработчика <br /> web@developer.ru{' '}
+				Блог веб-разработчика <br /> web@developer.ru
 			</div>
 			<div>
 				{date}
@@ -35,6 +35,6 @@ export const Footer = styled(FooterComponent)`
     bottom: 0;
 	width: 1000px;
 	height: 120px;
-	padding: 60px 40px;
+	padding: 40px 40px;
 	box-shadow: 0 2px 16px #000; */
 `;
