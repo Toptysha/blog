@@ -1,7 +1,1 @@
-import { getUsers } from './get-users';
-
-export const getCurrentUser = async (login) => {
-	const users = await getUsers();
-
-	return users.find((user) => user.login === login);
-};
+export const getCurrentUser = async (login) => fetch(`http://localhost:3005/users?login=${login}`).then((loadedUser) => loadedUser.json().then(([loadedUser]) => loadedUser));

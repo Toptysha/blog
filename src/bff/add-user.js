@@ -12,4 +12,4 @@ export const addUser = (regLogin, regPassword) =>
 		headers: {
 			'Content-type': 'application/json; charset=UTF-8',
 		},
-	});
+	}).then((createdUser) => createdUser.json());

@@ -34,24 +34,24 @@ export const server = {
 		};
 	},
 	async register(regLogin, regPassword) {
-		const duplicateUser = await getCurrentUser(regLogin);
+		const existedUser = await getCurrentUser(regLogin);
 
-		if (!duplicateUser) {
+		if (existedUser) {
 			return {
 				error: 'Логин уже используется',
 				res: null,
 			};
 		}
 
-		await addUser(regLogin, regPassword);
+		const user = await addUser(regLogin, regPassword);
 
 		return {
 			error: null,
 			res: {
-				id: duplicateUser.id,
-				login: duplicateUser.login,
-				roleId: duplicateUser.role_id,
-				session: sessions.create(duplicateUser),
+				id: user.id,
+				login: user.login,
+				roleId: user.role_id,
+				session: sessions.create(user),
 			},
 		};
 	},
