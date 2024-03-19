@@ -4,40 +4,33 @@
       "id": 0,
       "login": "john",
       "password": "123456",
-      "registered_at": "04-03-24",
+      "registered_at": "2041-01-18 16:24",
       "role_id": 0
-    },
-    {
-      "id": "e298",
-      "login": "kolya2",
-      "password": "123456",
-      "registered_at": "2059-04-15 08:44",
-      "role_id": 2
     },
     {
       "id": "7f45",
       "login": "kolya",
       "password": "123456",
       "registered_at": "2041-01-18 16:24",
-      "role_id": 2
+      "role_id": 1
     }
   ],
   "roles": [
     {
       "id": 0,
-      "name": "admin"
+      "name": "Администратор"
     },
     {
       "id": 1,
-      "name": "moderator"
+      "name": "Модератор"
     },
     {
       "id": 2,
-      "name": "reader"
+      "name": "Читатель"
     },
     {
       "id": 3,
-      "name": "guest"
+      "name": "Гость"
     }
   ],
   "posts": [
