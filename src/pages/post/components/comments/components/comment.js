@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import { Icon } from '../../../../../components';
+import { useDispatch } from 'react-redux';
+import { removeCommentAsync, CLOSE_MODAL, openModal } from '../../../../../redux/actions';
+import { useServerRequest } from '../../../../../hooks';
 
 const CommentBlock = styled.div`
 	width: 100%;
@@ -22,7 +25,23 @@ const CommentBlock = styled.div`
 	}
 `;
 
-const CommentComponent = ({ className, id, author, content, publishedAt }) => {
+const CommentComponent = ({ className, postId, commentId, author, content, publishedAt }) => {
+	const dispatch = useDispatch();
+	const requestServer = useServerRequest();
+
+	const onCommentRemove = (requestServer, postId, commentId) => {
+		dispatch(
+			openModal({
+				text: 'Удалить комментарий?',
+				onConfirm: () => {
+					dispatch(removeCommentAsync(requestServer, postId, commentId));
+					dispatch(CLOSE_MODAL);
+				},
+				onCancel: () => dispatch(CLOSE_MODAL),
+			}),
+		);
+	};
+
 	return (
 		<div className={className}>
 			<CommentBlock>
@@ -39,7 +58,7 @@ const CommentComponent = ({ className, id, author, content, publishedAt }) => {
 				<div>{content}</div>
 			</CommentBlock>
 
-			<Icon id="fa-trash-o" size="18px" margin="0 0px 0px 10px" />
+			<Icon id="fa-trash-o" size="18px" margin="0 0px 0px 10px" onClick={() => onCommentRemove(requestServer, postId, commentId)} />
 		</div>
 	);
 };

@@ -6,4 +6,5 @@ export * from './fetch-users';
 export * from './fetch-post';
 export * from './update-user-role';
 export * from './remove-user';
+export * from './remove-post-comment';
 export * from './add-post-comment';

@@ -43,7 +43,7 @@ const CommentsComponent = ({ className, comments, postId }) => {
 			</NewComment>
 			<CommentsList>
 				{comments.map(({ id, author, content, publishedAt }) => (
-					<Comment key={id} id={id} author={author} content={content} publishedAt={publishedAt} />
+					<Comment key={id} postId={postId} commentId={id} author={author} content={content} publishedAt={publishedAt} />
 				))}
 			</CommentsList>
 		</div>
