@@ -2,10 +2,12 @@ import { setUserRole } from '../api';
 import { ROLE } from '../constants';
 import { sessions } from '../sessions';
 
-export const updateUserRole = async (userSession, userId, newUserRoleId) => {
+export const updateUserRole = async (hash, userId, newUserRoleId) => {
 	const accessRoles = [ROLE.ADMIN];
 
-	if (!sessions.checkAccess(userSession, accessRoles)) {
+	const access = await sessions.checkAccess(hash, accessRoles);
+
+	if (!access) {
 		return {
 			error: 'Доступ запрещён',
 			res: null,
