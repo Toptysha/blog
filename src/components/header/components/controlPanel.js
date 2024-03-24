@@ -5,6 +5,7 @@ import { ROLE } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserRole, selectUserLogin, selectUserSession } from '../../../redux/selectors';
 import { logout } from '../../../redux/actions/logout';
+import { RESET_POST_DATA } from '../../../redux/actions';
 
 const UserName = styled.div`
 	font-size: 18px;
@@ -18,12 +19,8 @@ const RightAligned = styled.div`
 	align-items: center;
 `;
 
-const BackButton = styled.div`
-	cursor: pointer;
-`;
-
 const ControlPanelContainer = ({ className }) => {
-	const nav = useNavigate();
+	const navigate = useNavigate();
 
 	const dispatch = useDispatch();
 
@@ -36,6 +33,11 @@ const ControlPanelContainer = ({ className }) => {
 		sessionStorage.removeItem('userData');
 	};
 
+	const onCreatePost = () => {
+		dispatch(RESET_POST_DATA);
+		navigate('/post');
+	};
+
 	return (
 		<div className={className}>
 			<RightAligned>
@@ -46,22 +48,14 @@ const ControlPanelContainer = ({ className }) => {
 				) : (
 					<>
 						<UserName>{login}</UserName>
-						<BackButton onClick={() => dispatch(logout(session))}>
-							<Icon id="fa-sign-out" margin="0" onClick={onLogout} />
-						</BackButton>
+						<Icon id="fa-sign-out" margin="0" onClick={onLogout} />
 					</>
 				)}
 			</RightAligned>
 			<RightAligned>
-				<BackButton onClick={() => nav(-1)}>
-					<Icon id="fa-backward" margin="10px 0 0 0" />
-				</BackButton>
-				<Link to="/post">
-					<Icon id="fa-file-text-o" margin="10px 0 0 16px" />
-				</Link>
-				<Link to="/users">
-					<Icon id="fa-users" margin="10px 0 0 16px" />
-				</Link>
+				<Icon id="fa-backward" margin="10px 0 0 0" size="20px" onClick={() => navigate(-1)} />
+				<Icon id="fa-file-text-o" margin="10px 0 0 14px" size="20px" onClick={onCreatePost} />
+				<Icon id="fa-users" margin="10px 0 0 14px" size="20px" onClick={() => navigate('/users')} />
 			</RightAligned>
 		</div>
 	);

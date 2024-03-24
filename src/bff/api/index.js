@@ -1,4 +1,5 @@
 export * from './add-user';
+export * from './add-post';
 export * from './add-session';
 export * from './add-comment-api';
 export * from './get-post';
@@ -7,8 +8,9 @@ export * from './get-users';
 export * from './get-roles';
 export * from './get-session';
 export * from './get-comments';
-export * from './set-user-role';
 export * from './delete-user';
 export * from './delete-session';
 export * from './delete-comment';
+export * from './delete-post';
+export * from './set-user-role';
 export * from './update-post';

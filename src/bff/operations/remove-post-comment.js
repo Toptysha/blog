@@ -14,7 +14,7 @@ export const removePostComment = async (hash, postId, commentId) => {
 		};
 	}
 
-	deleteComment(commentId);
+	await deleteComment(commentId);
 
 	const post = await getPost(postId);
 
