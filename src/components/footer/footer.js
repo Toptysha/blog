@@ -31,9 +31,9 @@ export const Footer = styled(FooterComponent)`
 	justify-content: space-between;
 	background: #fff;
 	font-weight: bold;
-    bottom: 0;
+	bottom: 0;
 	width: 1000px;
 	height: 120px;
 	padding: 40px 40px;
-	box-shadow: 0 2px 16px #000; */
+	box-shadow: 0 2px 16px #000;
 `;

@@ -3,6 +3,7 @@ export * from './add-post';
 export * from './add-session';
 export * from './add-comment-api';
 export * from './get-post';
+export * from './get-posts';
 export * from './get-user';
 export * from './get-users';
 export * from './get-roles';
