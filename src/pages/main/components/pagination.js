@@ -26,6 +26,9 @@ export const Pagination = styled(PaginationContainer)`
 	justify-content: center;
 	margin: 0px 0 20px;
 	padding: 0 20px;
+	position: absolute;
+	bottom: -10px;
+	width: 1000px;
 
 	& button {
 		margin: 0 20px;
