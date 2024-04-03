@@ -1,8 +1,9 @@
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Icon } from '../../../components';
-// import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useServerRequest } from '../../../hooks';
+import styled from 'styled-components';
+import { PROP_TYPE } from '../../../constants';
 
 const UserData = styled.div`
 	display: flex;
@@ -77,3 +78,11 @@ export const UserRow = styled(UserRowComponent)`
 	width: 500px;
 	margin: auto;
 `;
+
+UserRow.propTypes = {
+	id: PropTypes.string.isRequired,
+	login: PropTypes.string.isRequired,
+	registeredAt: PropTypes.string.isRequired,
+	roleId: PROP_TYPE.ROLE_ID.isRequired,
+	onUserRemove: PropTypes.func.isRequired,
+};

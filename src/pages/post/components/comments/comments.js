@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
-import styled from 'styled-components';
 import { Icon } from '../../../../components';
 import { Comment } from './components';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +7,8 @@ import { selectUserId, selectUserRole } from '../../../../redux/selectors';
 import { addCommentAsync } from '../../../../redux/actions';
 import { useServerRequest } from '../../../../hooks';
 import { checkAccess } from '../../../../utils';
-import { ROLE } from '../../../../constants';
+import { PROP_TYPE, ROLE } from '../../../../constants';
+import styled from 'styled-components';
 
 const NewComment = styled.div`
 	width: 100%;
@@ -62,3 +63,8 @@ export const Comments = styled(CommentsComponent)`
 	width: 580px;
 	margin: 20px auto;
 `;
+
+Comments.propTypes = {
+	comments: PropTypes.arrayOf(PROP_TYPE.COMMENT).isRequired,
+	postId: PropTypes.string.isRequired,
+};

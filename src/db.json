@@ -168,6 +168,13 @@
       "post_id": "2",
       "published_at": "2040-04-15 05:13",
       "content": "To byl Adam"
+    },
+    {
+      "id": "f6d4",
+      "author_id": "0",
+      "post_id": "3",
+      "published_at": "2063-08-31 15:28",
+      "content": "top comment"
     }
   ],
   "sessions": [
@@ -238,14 +245,14 @@
       }
     },
     {
-      "id": "4ef2",
-      "hash": "0.41228145959953743648895851947600021958351135253906",
+      "id": "219e",
+      "hash": "0.30889977568395377005572299822233617305755615234375",
       "user": {
-        "id": "7f45",
-        "login": "kolya",
+        "id": "0",
+        "login": "john",
         "password": "123456",
         "registeredAt": "2041-01-18 16:24",
-        "roleId": 1
+        "roleId": 0
       }
     }
   ]

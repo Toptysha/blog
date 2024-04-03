@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const ButtonContainer = ({ children, className, ...props }) => (
@@ -18,3 +19,7 @@ export const Button = styled(ButtonContainer)`
 	height: 32px;
 	background: #eee;
 `;
+
+Button.propTypes = {
+	children: PropTypes.node.isRequired,
+};

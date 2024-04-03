@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import { Icon } from '../../../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../redux/actions';
@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { checkAccess } from '../../../../utils';
 import { ROLE } from '../../../../constants';
 import { selectUserRole } from '../../../../redux/selectors';
+import styled from 'styled-components';
 
 const SpecialPanelContent = styled.div`
 	display: flex;
@@ -56,3 +57,9 @@ export const SpecialPanel = styled(SpecialPanelComponent)`
 	justify-content: space-between;
 	margin: ${({ margin = '10px 0 20px 0' }) => margin};
 `;
+
+SpecialPanel.propTypes = {
+	postId: PropTypes.string.isRequired,
+	publishedAt: PropTypes.string.isRequired,
+	specialIcon: PropTypes.node.isRequired,
+};

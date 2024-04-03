@@ -1,10 +1,10 @@
 import { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const InputContainer = forwardRef(({ className, width, ...props }, ref) => <input className={className} {...props} ref={ref} />);
 
 export const Input = styled(InputContainer)`
-	${'' /* width: ${(width = '100%') => width}; */}
 	width: 100%;
 	height: 40px;
 	margin: 0 0 10px;
@@ -13,3 +13,7 @@ export const Input = styled(InputContainer)`
 	border-radius: 5px;
 	font-size: 18px;
 `;
+
+Input.propTypes = {
+	width: PropTypes.string,
+};

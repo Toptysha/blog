@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { Icon, Input } from '../../../../components';
 import { SpecialPanel } from '../special-panel/special-panel';
 import { useLayoutEffect, useRef, useState } from 'react';
@@ -7,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { savePostAsync } from '../../../../redux/actions';
 import { useServerRequest } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { PROP_TYPE } from '../../../../constants';
 
 const PostFormComponent = ({ className, post: { id, title, imageUrl, content, publishedAt } }) => {
 	const [imageUrlValue, setImageUrlValue] = useState(imageUrl);
@@ -70,3 +71,7 @@ export const PostForm = styled(PostFormComponent)`
 		padding: 5px;
 	}
 `;
+
+PostForm.propTypes = {
+	post: PROP_TYPE.POST.isRequired,
+};

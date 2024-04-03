@@ -1,7 +1,8 @@
-import styled from 'styled-components';
 import { H2, Icon } from '../../../../components';
 import { SpecialPanel } from '../special-panel/special-panel';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { PROP_TYPE } from '../../../../constants';
 
 const Content = styled.div`
 	font-size: 18px;
@@ -32,3 +33,7 @@ export const PostContent = styled(PostContentComponent)`
 		margin: 0 10px 6px 0;
 	}
 `;
+
+PostContent.propTypes = {
+	post: PROP_TYPE.POST.isRequired,
+};
