@@ -22,7 +22,7 @@ const MainContainer = ({ className }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [requestServer, page, shouldSearch, shouldSearch]);
 
-	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 200), []);
+	const startDelayedSearch = useMemo(() => debounce(setShouldSearch, 2000), []);
 
 	const onSearch = ({ target }) => {
 		setSearchPhrase(target.value);

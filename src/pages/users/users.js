@@ -1,9 +1,12 @@
 import styled from 'styled-components';
-import { Content, H2 } from '../../components';
+import { H2, PrivateContent } from '../../components';
 import { UserRow } from './components';
 import { useServerRequest } from '../../hooks';
 import { useEffect, useState } from 'react';
 import { ROLE } from '../../constants';
+import { checkAccess } from '../../utils';
+import { useSelector } from 'react-redux';
+import { selectUserRole } from '../../redux/selectors';
 
 const TableHeader = styled.div`
 	display: flex;
@@ -21,6 +24,7 @@ const RegisterAt = styled.div`
 
 const UsersComponent = ({ className }) => {
 	const requestServer = useServerRequest();
+	const userRole = useSelector(selectUserRole);
 
 	const [users, setUsers] = useState([]);
 	const [roles, setRoles] = useState([]);
@@ -28,6 +32,10 @@ const UsersComponent = ({ className }) => {
 	const [shouldUpdateUserList, setShouldUpdateUserList] = useState(false);
 
 	useEffect(() => {
+		if (!checkAccess([ROLE.ADMIN], userRole)) {
+			return;
+		}
+
 		Promise.all([requestServer('fetchUsers'), requestServer('fetchRoles')]).then(([usersRes, rolesRes]) => {
 			if (usersRes.error || rolesRes.error) {
 				setErrorMessage(usersRes.error || rolesRes.error);
@@ -37,9 +45,12 @@ const UsersComponent = ({ className }) => {
 			setUsers(usersRes.res);
 			setRoles(rolesRes.res);
 		});
-	}, [requestServer, shouldUpdateUserList]);
+	}, [requestServer, shouldUpdateUserList, userRole]);
 
 	const onUserRemove = (userId) => {
+		if (!checkAccess([ROLE.ADMIN], userRole)) {
+			return;
+		}
 		requestServer('removeUser', userId).then(() => {
 			setShouldUpdateUserList(!shouldUpdateUserList);
 		});
@@ -47,7 +58,7 @@ const UsersComponent = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<Content error={errorMessage}>
+			<PrivateContent access={[ROLE.ADMIN]} serverError={errorMessage}>
 				<H2>Пользователи</H2>
 				<div>
 					<TableHeader>
@@ -69,11 +80,9 @@ const UsersComponent = ({ className }) => {
 						);
 					})}
 				</div>
-			</Content>
+			</PrivateContent>
 		</div>
 	);
 };
 
-export const Users = styled(UsersComponent)`
-	${'' /* background: red; */}
-`;
+export const Users = styled(UsersComponent)``;
