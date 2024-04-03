@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import { Icon } from '../../../../components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../redux/actions';
 import { useServerRequest } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
+import { checkAccess } from '../../../../utils';
+import { ROLE } from '../../../../constants';
+import { selectUserRole } from '../../../../redux/selectors';
 
 const SpecialPanelContent = styled.div`
 	display: flex;
@@ -14,6 +17,7 @@ const SpecialPanelComponent = ({ className, postId, publishedAt, specialIcon }) 
 	const dispatch = useDispatch();
 	const requestServer = useServerRequest();
 	const navigate = useNavigate();
+	const userRole = useSelector(selectUserRole);
 
 	const onPostRemove = (requestServer, postId) => {
 		dispatch(
@@ -28,16 +32,20 @@ const SpecialPanelComponent = ({ className, postId, publishedAt, specialIcon }) 
 		);
 	};
 
+	const isAdmin = checkAccess([ROLE.ADMIN], userRole);
+
 	return (
 		<div className={className}>
 			<SpecialPanelContent>
 				{publishedAt && <Icon id="fa-calendar-o" size="18px" margin="0 10px 0 0" />}
 				{publishedAt}
 			</SpecialPanelContent>
-			<SpecialPanelContent>
-				{specialIcon}
-				{publishedAt && <Icon id="fa-trash-o" size="18px" margin="0 0 0 15px" onClick={() => onPostRemove(requestServer, postId)} />}
-			</SpecialPanelContent>
+			{isAdmin && (
+				<SpecialPanelContent>
+					{specialIcon}
+					{publishedAt && <Icon id="fa-trash-o" size="18px" margin="0 0 0 15px" onClick={() => onPostRemove(requestServer, postId)} />}
+				</SpecialPanelContent>
+			)}
 		</div>
 	);
 };

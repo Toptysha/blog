@@ -13,6 +13,13 @@
       "password": "123456",
       "registered_at": "2041-01-18 16:24",
       "role_id": 1
+    },
+    {
+      "id": "ce0c",
+      "login": "adam",
+      "password": "123456",
+      "registered_at": "2038-02-10 06:46",
+      "role_id": 2
     }
   ],
   "roles": [
@@ -135,13 +142,6 @@
       "content": "Opyat Kolya"
     },
     {
-      "id": "f8a3",
-      "author_id": "0",
-      "post_id": "2",
-      "published_at": "2060-07-19 16:31",
-      "content": "some test..."
-    },
-    {
       "id": "7817",
       "author_id": "0",
       "post_id": "4",
@@ -161,6 +161,13 @@
       "post_id": "8f3a",
       "published_at": "2051-04-29 22:14",
       "content": "Хорошая статья!"
+    },
+    {
+      "id": "f738",
+      "author_id": "ce0c",
+      "post_id": "2",
+      "published_at": "2040-04-15 05:13",
+      "content": "To byl Adam"
     }
   ],
   "sessions": [
@@ -231,14 +238,14 @@
       }
     },
     {
-      "id": "7d77",
-      "hash": "0.71690530147028241891860034229466691613197326660156",
+      "id": "4ef2",
+      "hash": "0.41228145959953743648895851947600021958351135253906",
       "user": {
-        "id": "0",
-        "login": "john",
+        "id": "7f45",
+        "login": "kolya",
         "password": "123456",
         "registeredAt": "2041-01-18 16:24",
-        "roleId": 0
+        "roleId": 1
       }
     }
   ]

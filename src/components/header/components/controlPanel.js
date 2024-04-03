@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUserRole, selectUserLogin, selectUserSession } from '../../../redux/selectors';
 import { logout } from '../../../redux/actions/logout';
 import { RESET_POST_DATA } from '../../../redux/actions';
+import { checkAccess } from '../../../utils';
 
 const UserName = styled.div`
 	font-size: 18px;
@@ -38,11 +39,13 @@ const ControlPanelContainer = ({ className }) => {
 		navigate('/post');
 	};
 
+	const isAdmin = checkAccess([ROLE.ADMIN], roleId);
+
 	return (
 		<div className={className}>
 			<RightAligned>
 				{roleId === ROLE.GUEST ? (
-					<Button width="300px">
+					<Button>
 						<Link to="/login">Войти</Link>
 					</Button>
 				) : (
@@ -54,11 +57,19 @@ const ControlPanelContainer = ({ className }) => {
 			</RightAligned>
 			<RightAligned>
 				<Icon id="fa-backward" margin="10px 0 0 0" size="20px" onClick={() => navigate(-1)} />
-				<Icon id="fa-file-text-o" margin="10px 0 0 14px" size="20px" onClick={onCreatePost} />
-				<Icon id="fa-users" margin="10px 0 0 14px" size="20px" onClick={() => navigate('/users')} />
+				{isAdmin && (
+					<>
+						<Icon id="fa-file-text-o" margin="10px 0 0 14px" size="20px" onClick={onCreatePost} />
+						<Icon id="fa-users" margin="10px 0 0 14px" size="20px" onClick={() => navigate('/users')} />
+					</>
+				)}
 			</RightAligned>
 		</div>
 	);
 };
 
-export const ControlPanel = styled(ControlPanelContainer)``;
+export const ControlPanel = styled(ControlPanelContainer)`
+	& button {
+		width: 90px;
+	}
+`;
