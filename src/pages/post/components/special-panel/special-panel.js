@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { Icon } from '../../../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { CLOSE_MODAL, openModal, removePostAsync } from '../../../../redux/actions';
-import { useServerRequest } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { checkAccess } from '../../../../utils';
 import { ROLE } from '../../../../constants';
@@ -16,16 +15,15 @@ const SpecialPanelContent = styled.div`
 
 const SpecialPanelComponent = ({ className, postId, publishedAt, specialIcon }) => {
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 	const navigate = useNavigate();
 	const userRole = useSelector(selectUserRole);
 
-	const onPostRemove = (requestServer, postId) => {
+	const onPostRemove = (postId) => {
 		dispatch(
 			openModal({
 				text: 'Удалить статью?',
 				onConfirm: () => {
-					dispatch(removePostAsync(requestServer, postId)).then(() => navigate(`/`));
+					dispatch(removePostAsync(postId)).then(() => navigate(`/`));
 					dispatch(CLOSE_MODAL);
 				},
 				onCancel: () => dispatch(CLOSE_MODAL),
@@ -44,7 +42,7 @@ const SpecialPanelComponent = ({ className, postId, publishedAt, specialIcon }) 
 			{isAdmin && (
 				<SpecialPanelContent>
 					{specialIcon}
-					{publishedAt && <Icon id="fa-trash-o" size="18px" margin="0 0 0 15px" onClick={() => onPostRemove(requestServer, postId)} />}
+					{publishedAt && <Icon id="fa-trash-o" size="18px" margin="0 0 0 15px" onClick={() => onPostRemove(postId)} />}
 				</SpecialPanelContent>
 			)}
 		</div>

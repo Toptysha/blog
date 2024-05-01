@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import { Icon } from '../../../../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeCommentAsync, CLOSE_MODAL, openModal } from '../../../../../redux/actions';
-import { useServerRequest } from '../../../../../hooks';
 import { checkAccess } from '../../../../../utils';
 import { ROLE } from '../../../../../constants';
 import { selectUserRole } from '../../../../../redux/selectors';
@@ -31,15 +30,14 @@ const CommentBlock = styled.div`
 
 const CommentComponent = ({ className, postId, commentId, author, content, publishedAt }) => {
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 	const userRole = useSelector(selectUserRole);
 
-	const onCommentRemove = (requestServer, postId, commentId) => {
+	const onCommentRemove = (postId, commentId) => {
 		dispatch(
 			openModal({
 				text: 'Удалить комментарий?',
 				onConfirm: () => {
-					dispatch(removeCommentAsync(requestServer, postId, commentId));
+					dispatch(removeCommentAsync(postId, commentId));
 					dispatch(CLOSE_MODAL);
 				},
 				onCancel: () => dispatch(CLOSE_MODAL),
@@ -65,11 +63,7 @@ const CommentComponent = ({ className, postId, commentId, author, content, publi
 				<div>{content}</div>
 			</CommentBlock>
 
-			{isModeratorOrAdmin ? (
-				<Icon id="fa-trash-o" size="18px" margin="0 0px 0px 10px" onClick={() => onCommentRemove(requestServer, postId, commentId)} />
-			) : (
-				<div className="empty"></div>
-			)}
+			{isModeratorOrAdmin ? <Icon id="fa-trash-o" size="18px" margin="0 0px 0px 10px" onClick={() => onCommentRemove(postId, commentId)} /> : <div className="empty"></div>}
 		</div>
 	);
 };

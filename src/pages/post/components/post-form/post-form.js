@@ -4,7 +4,6 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { sanitizeContent } from './utils';
 import { useDispatch } from 'react-redux';
 import { savePostAsync } from '../../../../redux/actions';
-import { useServerRequest } from '../../../../hooks';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { PROP_TYPE } from '../../../../constants';
@@ -20,13 +19,12 @@ const PostFormComponent = ({ className, post: { id, title, imageUrl, content, pu
 	}, [title, imageUrl]);
 
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 	const navigate = useNavigate();
 
 	const onSave = () => {
 		const newContent = sanitizeContent(contentRef.current.innerHTML);
 
-		dispatch(savePostAsync(requestServer, { id, imageUrl: imageUrlValue, title: titleValue, content: newContent })).then(({ id }) => {
+		dispatch(savePostAsync(id, { title: titleValue, imageUrl: imageUrlValue, content: newContent })).then(({ id }) => {
 			navigate(`/post/${id}`);
 		});
 	};

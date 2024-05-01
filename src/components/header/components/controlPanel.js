@@ -3,7 +3,7 @@ import { Icon, Button } from '../../../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { ROLE } from '../../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserRole, selectUserLogin, selectUserSession } from '../../../redux/selectors';
+import { selectUserRole, selectUserLogin } from '../../../redux/selectors';
 import { logout } from '../../../redux/actions/logout';
 import { RESET_POST_DATA } from '../../../redux/actions';
 import { checkAccess } from '../../../utils';
@@ -27,10 +27,9 @@ const ControlPanelContainer = ({ className }) => {
 
 	const roleId = useSelector(selectUserRole);
 	const login = useSelector(selectUserLogin);
-	const session = useSelector(selectUserSession);
 
 	const onLogout = () => {
-		dispatch(logout(session));
+		dispatch(logout());
 		sessionStorage.removeItem('userData');
 	};
 

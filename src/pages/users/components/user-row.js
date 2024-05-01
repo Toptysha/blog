@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Icon } from '../../../components';
 import { useState } from 'react';
-import { useServerRequest } from '../../../hooks';
 import styled from 'styled-components';
 import { PROP_TYPE } from '../../../constants';
+import { request } from '../../../utils/request';
 
 const UserData = styled.div`
 	display: flex;
@@ -37,8 +37,6 @@ const DeleteUserIcon = styled(Icon)`
 `;
 
 const UserRowComponent = ({ className, id, login, registeredAt, roleId: userRoleId, roles, onUserRemove }) => {
-	const requestServer = useServerRequest();
-
 	const [initialRoleId, setInitialRoleId] = useState(userRoleId);
 	const [selectedRoleId, setSelectedRoleId] = useState(userRoleId);
 
@@ -49,7 +47,7 @@ const UserRowComponent = ({ className, id, login, registeredAt, roleId: userRole
 	const isSaveButtonDisabled = selectedRoleId === initialRoleId;
 
 	const onUserRoleSave = (userId, newUserRoleId) => {
-		requestServer('updateUserRole', userId, newUserRoleId).then(() => setInitialRoleId(newUserRoleId));
+		request(`/users/${userId}`, 'PATCH', { roleId: newUserRoleId }).then(() => setInitialRoleId(newUserRoleId));
 	};
 
 	return (

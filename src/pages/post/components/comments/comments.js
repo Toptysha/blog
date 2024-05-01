@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { Icon } from '../../../../components';
 import { Comment } from './components';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUserId, selectUserRole } from '../../../../redux/selectors';
+import { selectUserRole } from '../../../../redux/selectors';
 import { addCommentAsync } from '../../../../redux/actions';
-import { useServerRequest } from '../../../../hooks';
 import { checkAccess } from '../../../../utils';
 import { PROP_TYPE, ROLE } from '../../../../constants';
 import styled from 'styled-components';
@@ -29,14 +28,12 @@ const CommentsList = styled.div``;
 const CommentsComponent = ({ className, comments, postId }) => {
 	const [newComment, setNewComment] = useState('');
 
-	const userId = useSelector(selectUserId);
 	const dispatch = useDispatch();
-	const requestServer = useServerRequest();
 
 	const userRole = useSelector(selectUserRole);
 
-	const onNewCommentAdd = (requestServer, postId, userId, content) => {
-		dispatch(addCommentAsync(requestServer, postId, userId, content));
+	const onNewCommentAdd = (postId, content) => {
+		dispatch(addCommentAsync(postId, content));
 		setNewComment('');
 	};
 
@@ -47,7 +44,7 @@ const CommentsComponent = ({ className, comments, postId }) => {
 			{isNotGuest && (
 				<NewComment>
 					<textarea name="comment" value={newComment} placeholder="Комментарий..." onChange={({ target }) => setNewComment(target.value)} />
-					<Icon id="fa-paper-plane-o" size="18px" margin="0 0px 0px 10px" onClick={() => onNewCommentAdd(requestServer, postId, userId, newComment)} />
+					<Icon id="fa-paper-plane-o" size="18px" margin="0 0px 0px 10px" onClick={() => onNewCommentAdd(postId, newComment)} />
 				</NewComment>
 			)}
 			<CommentsList>
