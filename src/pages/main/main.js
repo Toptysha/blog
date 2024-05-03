@@ -11,7 +11,7 @@ const MainContainer = ({ className }) => {
 	const [searchPhrase, setSearchPhrase] = useState('');
 	const [lastPage, setLastPage] = useState(1);
 
-	const PAGINATION_LIMIT = 10;
+	const PAGINATION_LIMIT = 6;
 
 	useEffect(() => {
 		request(`/posts?search=${searchPhrase}&page=${page}&limit=${PAGINATION_LIMIT}`).then(({ data: { posts, lastPage } }) => {
